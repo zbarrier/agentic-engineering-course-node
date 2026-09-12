@@ -17,4 +17,9 @@ export type ReservationPlaced = Event<'ReservationPlaced', {
     Code: string;
 }, CommonMeta>;
 
-export type ReservationsEvents = ReservationPlaced;
+export type ReservationCancelled = Event<'ReservationCancelled', {
+    Id: string;
+    RestaurantId: string;
+}, CommonMeta>;
+
+export type ReservationsEvents = ReservationPlaced | ReservationCancelled;
