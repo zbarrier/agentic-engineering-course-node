@@ -1,0 +1,186 @@
+{
+  "slices": [
+    {
+      "id": "cb584b5d-8964-4277-ab75-51bea00461fd",
+      "slice": "Reservation By Code",
+      "index": 0,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "reservationbycode",
+      "status": "Created",
+      "definition": {
+        "id": "cb584b5d-8964-4277-ab75-51bea00461fd",
+        "title": "Reservation By Code",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "d4f6e67d-0d16-4e3c-a7c2-6b015dd9b6fe",
+      "slice": "Cancel Reservation",
+      "index": 1,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "cancelreservation",
+      "status": "Created",
+      "definition": {
+        "id": "d4f6e67d-0d16-4e3c-a7c2-6b015dd9b6fe",
+        "title": "Cancel Reservation",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "20c5e02c-7d2f-4ae8-b76d-90abc451e6ff",
+      "slice": "Place Reservation",
+      "index": 2,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "placereservation",
+      "status": "Done",
+      "definition": {
+        "id": "20c5e02c-7d2f-4ae8-b76d-90abc451e6ff",
+        "title": "Place Reservation",
+        "status": "Done"
+      }
+    },
+    {
+      "id": "15d67bd1-8987-463f-8512-25592f14a0eb",
+      "slice": "Active Reservations",
+      "index": 3,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "activereservations",
+      "status": "Done",
+      "definition": {
+        "id": "15d67bd1-8987-463f-8512-25592f14a0eb",
+        "title": "Active Reservations",
+        "status": "Done"
+      }
+    },
+    {
+      "id": "acd63cc8-036c-47de-93bd-a3a7f5ba0541",
+      "slice": "Cancel Vacation",
+      "index": 4,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "cancelvacation",
+      "status": "Created",
+      "definition": {
+        "id": "acd63cc8-036c-47de-93bd-a3a7f5ba0541",
+        "title": "Cancel Vacation",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "a726b1be-b7e1-46a5-9db0-0e00c2ce4f33",
+      "slice": "Plan Vacation",
+      "index": 5,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "planvacation",
+      "status": "Created",
+      "definition": {
+        "id": "a726b1be-b7e1-46a5-9db0-0e00c2ce4f33",
+        "title": "Plan Vacation",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "a143ee33-0166-433b-92d0-39ec3baa5927",
+      "slice": "Add Table",
+      "index": 6,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "addtable",
+      "status": "Created",
+      "definition": {
+        "id": "a143ee33-0166-433b-92d0-39ec3baa5927",
+        "title": "Add Table",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "b7440d2c-702a-4b12-b666-e1f6163d1e13",
+      "slice": "Tables",
+      "index": 7,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "tables",
+      "status": "Created",
+      "definition": {
+        "id": "b7440d2c-702a-4b12-b666-e1f6163d1e13",
+        "title": "Tables",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "f82c4c3b-0fa1-40b8-b644-19d563311748",
+      "slice": "Update Number of Table Seats",
+      "index": 8,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "updatenumberoftableseats",
+      "status": "Created",
+      "definition": {
+        "id": "f82c4c3b-0fa1-40b8-b644-19d563311748",
+        "title": "Update Number of Table Seats",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "356f4d73-7758-4d51-8df3-9a7613a10b14",
+      "slice": "Delete Table",
+      "index": 9,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "deletetable",
+      "status": "Created",
+      "definition": {
+        "id": "356f4d73-7758-4d51-8df3-9a7613a10b14",
+        "title": "Delete Table",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "def56a4d-2313-4791-9803-553511c7b27a",
+      "slice": "Planned Vacations",
+      "index": 10,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "plannedvacations",
+      "status": "Created",
+      "definition": {
+        "id": "def56a4d-2313-4791-9803-553511c7b27a",
+        "title": "Planned Vacations",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "2954a58f-a358-4cda-ab2b-059bd1d56948",
+      "slice": "Pending Reservation Confirmations",
+      "index": 11,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "pendingreservationconfirmations",
+      "status": "Created",
+      "definition": {
+        "id": "2954a58f-a358-4cda-ab2b-059bd1d56948",
+        "title": "Pending Reservation Confirmations",
+        "status": "Created"
+      }
+    },
+    {
+      "id": "a68d1537-6571-492d-920a-dbf9f8b65801",
+      "slice": "Send Reservation Confirmation",
+      "index": 12,
+      "contextName": "default",
+      "contextSlug": "default",
+      "folder": "sendreservationconfirmation",
+      "status": "Created",
+      "definition": {
+        "id": "a68d1537-6571-492d-920a-dbf9f8b65801",
+        "title": "Send Reservation Confirmation",
+        "status": "Created"
+      }
+    }
+  ]
+}
