@@ -13,18 +13,17 @@ import {PostgresEventStore} from "@event-driven-io/emmett-postgresql";
 async function startServer() {
 
     const eventStore = await findEventstore()
-    const toGlobPath = (p: string) => p.split('\\').join('/');
-    const slicesBase = toGlobPath(join(__dirname, 'dist/src/slices'));
-    const routesPattern = `${slicesBase}/**/routes{,-*}.js`;
+    const slicesBase = join(__dirname, 'dist/src/slices');
+    const routesPattern = join(slicesBase, '**/routes{,-*}.js');
 
     const routeFiles = await glob(routesPattern, {nodir: true});
     console.log('Found route files:', routeFiles);
 
-    const processorPattern = `${slicesBase}/**/processor{,-*}.js`;
+    const processorPattern = join(slicesBase, '**/processor{,-*}.js');
     const processorFiles = await glob(processorPattern, {nodir: true});
     console.log('Found processor files:', processorFiles);
 
-    const commonPattern = `${toGlobPath(join(__dirname, 'src/common'))}/routes{,-*}.@(ts|js)`;
+    const commonPattern = join(__dirname, 'src/common/routes{,-*}.@(ts|js)');
     const commonRouteFiles = await glob(commonPattern, {nodir: true});
     console.log('Found common route files:', commonRouteFiles);
 
