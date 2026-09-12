@@ -1,2 +1,4 @@
 .eventmodelers/
 .claude/settings.local.json
+dist/
+.build-kit/.slices/
