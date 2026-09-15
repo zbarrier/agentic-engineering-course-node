@@ -1,0 +1,349 @@
+{
+  "id": "cb584b5d-8964-4277-ab75-51bea00461fd",
+  "status": "Planned",
+  "title": "Reservation By Code",
+  "context": "Reservations",
+  "sliceType": "STATE_VIEW",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "a4d70e63-1b58-4c92-af07-6d2b8f3e5c19",
+      "tags": [],
+      "lane": "Interaction",
+      "elementContext": "INTERNAL",
+      "modelContext": "Reservations",
+      "context": "INTERNAL",
+      "slice": "Reservation By Code",
+      "title": "Reservation By Code",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "mapping": "Reservation Placed.Id",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": true
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Reservation Placed.RestaurantId",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Code",
+          "type": "String",
+          "example": "R7K2QX",
+          "mapping": "Reservation Placed.Code",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Reservation Placed.Email",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Start",
+          "type": "DateTime",
+          "example": "2026-09-18T19:00:00Z",
+          "mapping": "Reservation Placed.Start",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "End",
+          "type": "DateTime",
+          "example": "2026-09-18T21:00:00Z",
+          "mapping": "Reservation Placed.End",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "PartySize",
+          "type": "Int",
+          "example": "4",
+          "mapping": "Reservation Placed.PartySize",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "READMODEL",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "c9e37b52-4d80-4a15-9f63-8c2a1e7d0b94",
+          "type": "OUTBOUND",
+          "title": "Find Your Reservation",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "type": "INBOUND",
+          "title": "Reservation Placed",
+          "elementType": "EVENT"
+        }
+      ],
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "a4d70e63-1b58-4c92-af07-6d2b8f3e5c19",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [
+        "What does the guest see if they enter a code that doesn't match any reservation?",
+        "Should someone still be able to look up a reservation by its code after it's been cancelled, or should the code stop working right away?"
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "c9e37b52-4d80-4a15-9f63-8c2a1e7d0b94",
+      "tags": [],
+      "lane": "Guest",
+      "elementContext": "INTERNAL",
+      "modelContext": "Reservations",
+      "context": "INTERNAL",
+      "slice": "Reservation By Code",
+      "title": "Find Your Reservation",
+      "fields": [
+        {
+          "name": "Code",
+          "type": "String",
+          "example": "R7K2QX",
+          "mapping": "Reservation By Code.Code",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Reservation By Code.Email",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Start",
+          "type": "DateTime",
+          "example": "2026-09-18T19:00:00Z",
+          "mapping": "Reservation By Code.Start",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "End",
+          "type": "DateTime",
+          "example": "2026-09-18T21:00:00Z",
+          "mapping": "Reservation By Code.End",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "PartySize",
+          "type": "Int",
+          "example": "4",
+          "mapping": "Reservation By Code.PartySize",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "mapping": "Cancel Reservation.Id",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Cancel Reservation.RestaurantId",
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "HTML_SCREEN",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "type": "OUTBOUND",
+          "title": "Cancel Reservation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "a4d70e63-1b58-4c92-af07-6d2b8f3e5c19",
+          "type": "INBOUND",
+          "title": "Reservation By Code",
+          "elementType": "READMODEL"
+        }
+      ],
+      "listElement": false,
+      "todoList": false,
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "c9e37b52-4d80-4a15-9f63-8c2a1e7d0b94",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [],
+      "pages": [
+        "<div style=\"padding:40px;background:#f5f7fa;min-height:100%;font-size:16px\"><h1 class=\"title is-2\">Find Your Reservation</h1><p class=\"subtitle is-5\">Enter the code from your confirmation email.</p><div class=\"box\" style=\"padding:24px;margin-bottom:28px;max-width:560px\"><div class=\"field has-addons\"><div class=\"control is-expanded\"><input class=\"input is-medium\" type=\"text\" value=\"R7K2QX\" /></div><div class=\"control\"><button class=\"button is-primary is-medium\">Look Up</button></div></div></div><div class=\"box\" style=\"padding:32px;max-width:560px\"><h2 class=\"title is-4\">Reservation R7K2QX</h2><table class=\"table is-fullwidth\" style=\"font-size:16px\"><tbody><tr><th style=\"width:220px\">Email</th><td>guest@example.com</td></tr><tr><th>Start</th><td>2026-09-18 19:00</td></tr><tr><th>End</th><td>2026-09-18 21:00</td></tr><tr><th>Number of People</th><td>4</td></tr></tbody></table><div class=\"control\" style=\"margin-top:28px\"><button class=\"button is-danger is-large is-fullwidth\">Cancel This Reservation</button></div></div></div>"
+      ]
+    }
+  ],
+  "screenImages": [],
+  "screenLayouts": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "55555555-5555-4555-8555-555555555501",
+      "title": "Reservation Found By Its Code",
+      "chapter": "Reservations",
+      "sliceName": "Reservation By Code",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Look Up Reservation By Code",
+          "tags": [],
+          "id": "66666666-6666-4666-8666-666666666601",
+          "index": 0,
+          "specRow": 0,
+          "type": "QUERY",
+          "fields": [
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "title": "Reservation By Code",
+          "tags": [],
+          "id": "a4d70e63-1b58-4c92-af07-6d2b8f3e5c19",
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    }
+  ],
+  "storylines": [],
+  "chapter": "Reservations",
+  "codeGen": {},
+  "notes": [
+    "## Event to field reasoning - Reservation By Code\n\n- **Reservation Placed** -> sets `Id`, `Code`, `Email`, `Start`, `End`, `NumberOfPeople` - the only source event. This is a single-record lookup keyed on `Code`, not a list.\n\n### Why `Id` is projected even though the screen never displays it\n\nThe `Find Your Reservation` screen carries a field `Id` mapped to `Cancel Reservation.Id`. The guest types a code, never an id - so that value has to come from somewhere on the page. It comes from here. Without `Id` on this read model, the cancel command would have an input with no traceable source.\n\nThis is the reason the cancel-by-code flow was modelled as a lookup slice rather than a bare `Cancel Reservation(code)` command: resolving code -> id happens in a read model *before* the command is issued, so the command still validates against its own event stream and never against a projection.\n\n### Fan-in\n\nOne source event. No split needed."
+  ],
+  "comments": [],
+  "aggregates": []
+}

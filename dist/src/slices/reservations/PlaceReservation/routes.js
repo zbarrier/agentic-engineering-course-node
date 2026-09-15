@@ -14,6 +14,83 @@ const crypto_1 = require("crypto");
 const assertions_1 = require("../../../util/assertions");
 const PlaceReservationCommand_1 = require("./PlaceReservationCommand");
 const api = () => (router) => {
+    /**
+     * @openapi
+     * /api/restaurants/{RestaurantId}/reservations:
+     *   post:
+     *     summary: Place a new reservation for a restaurant
+     *     tags: [Reservations]
+     *     parameters:
+     *       - in: path
+     *         name: RestaurantId
+     *         required: true
+     *         schema:
+     *           type: string
+     *           format: uuid
+     *       - in: header
+     *         name: correlation_id
+     *         required: false
+     *         schema:
+     *           type: string
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             required: [Email, Start, End, NumberOfPeople]
+     *             properties:
+     *               Email:
+     *                 type: string
+     *               Start:
+     *                 type: string
+     *                 format: date-time
+     *               End:
+     *                 type: string
+     *                 format: date-time
+     *               NumberOfPeople:
+     *                 type: integer
+     *     responses:
+     *       201:
+     *         description: Reservation placed successfully
+     *         headers:
+     *           correlation_id:
+     *             schema:
+     *               type: string
+     *           causation_id:
+     *             schema:
+     *               type: string
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 ok:
+     *                   type: boolean
+     *                 id:
+     *                   type: string
+     *                   format: uuid
+     *                 code:
+     *                   type: string
+     *                 next_expected_stream_version:
+     *                   type: string
+     *                 last_event_global_position:
+     *                   type: string
+     *       409:
+     *         description: >
+     *           Reservation could not be placed (Reservation Already Exists,
+     *           At Least 1 Person Required, End Must Be After Start,
+     *           or Reservation Start Must Be In The Future)
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 error:
+     *                   type: string
+     *       500:
+     *         description: Server error
+     */
     router.post('/api/restaurants/:RestaurantId/reservations', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         var _a, _b, _c;
         const restaurantId = (0, assertions_1.assertNotEmpty)(req.params.RestaurantId);

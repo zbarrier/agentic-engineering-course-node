@@ -1,0 +1,382 @@
+{
+  "id": "a68d1537-6571-492d-920a-dbf9f8b65801",
+  "status": "Created",
+  "title": "Send Reservation Confirmation",
+  "context": "Reservations",
+  "sliceType": "AUTOMATION",
+  "commands": [
+    {
+      "id": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+      "tags": [],
+      "lane": "Interaction",
+      "modelContext": "Reservations",
+      "slice": "Send Reservation Confirmation",
+      "title": "Send Reservation Confirmation",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "mapping": "Pending Reservation Confirmations.Id",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": true
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Pending Reservation Confirmations.RestaurantId",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Pending Reservation Confirmations.Email",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "COMMAND",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+          "type": "OUTBOUND",
+          "title": "Reservation Confirmation Sent",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "2b0c4d61-5e83-4f29-9b17-3a6f8d0e2c4f",
+          "type": "INBOUND",
+          "title": "Reservation Confirmation Mailer",
+          "elementType": "AUTOMATION"
+        }
+      ],
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": []
+    }
+  ],
+  "events": [
+    {
+      "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+      "tags": [],
+      "lane": "Swimlane",
+      "modelContext": "Reservations",
+      "slice": "Send Reservation Confirmation",
+      "title": "Reservation Confirmation Sent",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "cardinality": "Single",
+          "idAttribute": true
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "EVENT",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+          "type": "OUTBOUND",
+          "title": "Pending Reservation Confirmations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+          "type": "INBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "screenImages": [],
+  "screenLayouts": [],
+  "processors": [
+    {
+      "id": "2b0c4d61-5e83-4f29-9b17-3a6f8d0e2c4f",
+      "tags": [],
+      "lane": "Actor",
+      "modelContext": "Reservations",
+      "slice": "Send Reservation Confirmation",
+      "title": "Reservation Confirmation Mailer",
+      "fields": [],
+      "type": "AUTOMATION",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+          "type": "OUTBOUND",
+          "title": "Send Reservation Confirmation",
+          "elementType": "COMMAND"
+        },
+        {
+          "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+          "type": "INBOUND",
+          "title": "Pending Reservation Confirmations",
+          "elementType": "READMODEL"
+        }
+      ],
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "2b0c4d61-5e83-4f29-9b17-3a6f8d0e2c4f",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [
+        "What should happen if the confirmation email can't be delivered — do we retry, or does the guest just never get one?",
+        "If a reservation gets cancelled right after being made, could the confirmation email still go out for it anyway?"
+      ]
+    }
+  ],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "88888888-2222-4888-8888-888888888802",
+      "title": "Reservation Confirmation Sent Successfully",
+      "chapter": "Reservations",
+      "sliceName": "Send Reservation Confirmation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Send Reservation Confirmation",
+          "tags": [],
+          "id": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "title": "Reservation Confirmation Sent",
+          "tags": [],
+          "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    },
+    {
+      "id": "88888888-2222-4888-8888-888888888803",
+      "title": "Confirmation Cannot Be Sent Twice",
+      "chapter": "Reservations",
+      "sliceName": "Send Reservation Confirmation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "title": "Reservation Confirmation Sent",
+          "tags": [],
+          "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Send Reservation Confirmation",
+          "tags": [],
+          "id": "3c1d5e72-6f94-4a30-8c28-4b7a9e1f3d50",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": {
+        "title": "Confirmation Cannot Be Sent Twice",
+        "id": "ef356474-0edb-4ff5-9e9a-da4ab78010df",
+        "description": "Confirmation Already Sent",
+        "type": "SPEC_ERROR",
+        "fields": []
+      },
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    }
+  ],
+  "storylines": [],
+  "chapter": "Reservations",
+  "codeGen": {},
+  "notes": [],
+  "comments": [],
+  "aggregates": []
+}

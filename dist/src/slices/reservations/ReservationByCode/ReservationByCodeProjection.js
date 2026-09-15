@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActiveReservationsProjection = exports.getKnexInstance = exports.tableName = void 0;
+exports.ReservationByCodeProjection = exports.getKnexInstance = exports.tableName = void 0;
 const emmett_postgresql_1 = require("@event-driven-io/emmett-postgresql");
 const dumbo_1 = require("@event-driven-io/dumbo");
 const knex_1 = __importDefault(require("knex"));
-exports.tableName = 'active_reservations';
+exports.tableName = 'reservation_by_code';
 const getKnexInstance = () => (0, knex_1.default)({ client: 'pg' });
 exports.getKnexInstance = getKnexInstance;
-exports.ActiveReservationsProjection = (0, emmett_postgresql_1.postgreSQLRawSQLProjection)({
-    name: 'ActiveReservationsProjection',
-    canHandle: ['ReservationPlaced', 'ReservationCancelled'],
+exports.ReservationByCodeProjection = (0, emmett_postgresql_1.postgreSQLRawSQLProjection)({
+    name: 'ReservationByCodeProjection',
+    canHandle: ['ReservationPlaced'],
     evolve: (event, context) => __awaiter(void 0, void 0, void 0, function* () {
         const db = (0, exports.getKnexInstance)();
         switch (event.type) {
@@ -31,20 +31,14 @@ exports.ActiveReservationsProjection = (0, emmett_postgresql_1.postgreSQLRawSQLP
                         .insert({
                         id: event.data.Id,
                         restaurant_id: event.data.RestaurantId,
-                        email: event.data.Email,
                         code: event.data.Code,
+                        email: event.data.Email,
                         start: event.data.Start,
                         end: event.data.End,
                         party_size: event.data.NumberOfPeople,
                     })
                         .onConflict('id')
-                        .merge(['restaurant_id', 'email', 'code', 'start', 'end', 'party_size'])
-                        .toQuery())];
-            case 'ReservationCancelled':
-                return [(0, dumbo_1.sql)(db(exports.tableName)
-                        .withSchema('public')
-                        .where({ id: event.data.Id })
-                        .delete()
+                        .merge(['restaurant_id', 'code', 'email', 'start', 'end', 'party_size'])
                         .toQuery())];
             default:
                 return [];

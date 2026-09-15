@@ -52,7 +52,7 @@ const TEST_ID = 'test-id-001';
                 assert_1.default.strictEqual(result.restaurant_id, '100');
                 assert_1.default.strictEqual(result.email, 'guest@example.com');
                 assert_1.default.strictEqual(result.code, 'R7K2QX');
-                assert_1.default.strictEqual(result.number_of_people, 4);
+                assert_1.default.strictEqual(result.party_size, 4);
             }
             finally {
                 yield queryDb.destroy();

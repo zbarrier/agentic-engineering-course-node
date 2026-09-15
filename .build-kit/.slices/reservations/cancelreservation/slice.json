@@ -1,0 +1,578 @@
+{
+  "id": "d4f6e67d-0d16-4e3c-a7c2-6b015dd9b6fe",
+  "status": "Created",
+  "title": "Cancel Reservation",
+  "context": "Reservations",
+  "sliceType": "STATE_CHANGE",
+  "commands": [
+    {
+      "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+      "tags": [],
+      "lane": "Interaction",
+      "modelContext": "Reservations",
+      "slice": "Cancel Reservation",
+      "title": "Cancel Reservation",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "mapping": "Reservation Placed.Id",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": true,
+          "subfields": []
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Reservation Placed.RestaurantId",
+          "generated": false,
+          "cardinality": "Single",
+          "subfields": [],
+          "idAttribute": false
+        },
+        {
+          "name": "Code",
+          "type": "String",
+          "example": "R7K2QX",
+          "mapping": "user-input",
+          "generated": false,
+          "cardinality": "Single",
+          "subfields": [],
+          "idAttribute": false
+        }
+      ],
+      "type": "COMMAND",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
+          "type": "OUTBOUND",
+          "title": "Reservation Cancelled",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "c9e37b52-4d80-4a15-9f63-8c2a1e7d0b94",
+          "type": "INBOUND",
+          "title": "Find Your Reservation",
+          "elementType": "HTML_SCREEN"
+        }
+      ],
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [
+        "What should happen if someone submits the right code but the wrong restaurant when cancelling?",
+        "Should guests be able to cancel right up until the reservation starts, or is there a cutoff before then, like no same-day cancellations?",
+        "Can restaurant staff cancel a reservation on a guest's behalf, or is cancellation only ever done by the guest using their code?"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
+      "tags": [],
+      "lane": "Swimlane",
+      "modelContext": "Reservations",
+      "slice": "Cancel Reservation",
+      "title": "Reservation Cancelled",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "cardinality": "Single",
+          "idAttribute": true
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "EVENT",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "d7f28a61-4c19-4b83-9e50-3a6c1d8f2b47",
+          "type": "OUTBOUND",
+          "title": "Reservation By Code",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "b8e51c94-3a26-4f70-9c83-1e7d0a4b6f52",
+          "type": "OUTBOUND",
+          "title": "Active Reservations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "b560b35a-1290-4654-a438-9836be686f45",
+          "type": "OUTBOUND",
+          "title": "Open Reservations",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "11447339-0f31-4d70-8760-b5849d154b52",
+          "type": "OUTBOUND",
+          "title": "Table Seating Availability",
+          "elementType": "READMODEL"
+        },
+        {
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "type": "INBOUND",
+          "title": "Cancel Reservation",
+          "elementType": "COMMAND"
+        }
+      ],
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": []
+    }
+  ],
+  "readmodels": [],
+  "screens": [],
+  "screenImages": [],
+  "screenLayouts": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [
+    {
+      "id": "22222222-2222-4222-8222-222222222201",
+      "title": "Reservation Cancelled Successfully",
+      "chapter": "Reservations",
+      "sliceName": "Cancel Reservation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Cancel Reservation",
+          "tags": [],
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": [
+        {
+          "title": "Reservation Cancelled",
+          "tags": [],
+          "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222202",
+      "title": "Reservation Must Exist",
+      "chapter": "Reservations",
+      "sliceName": "Cancel Reservation",
+      "vertical": false,
+      "context": [],
+      "given": [],
+      "when": [
+        {
+          "title": "Cancel Reservation",
+          "tags": [],
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": {
+        "title": "Reservation Must Exist",
+        "id": "c23ac9a5-130b-48a1-bb57-f4fa374deb1b",
+        "description": "Reservation Not Found",
+        "type": "SPEC_ERROR",
+        "fields": []
+      },
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222203",
+      "title": "Cancellation Requires The Correct Code",
+      "chapter": "Reservations",
+      "sliceName": "Cancel Reservation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Cancel Reservation",
+          "tags": [],
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "WRONG1"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": {
+        "title": "Cancellation Requires The Correct Code",
+        "id": "0a2c8f5e-0221-4236-bee5-65362805b25f",
+        "description": "Invalid Reservation Code",
+        "type": "SPEC_ERROR",
+        "fields": []
+      },
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    },
+    {
+      "id": "e7c0b223-847c-45d0-a776-28aa3bf426e0",
+      "title": "Reservation Can't Be Cancelled Less Than 2 Hours Before Start",
+      "chapter": "Reservations",
+      "sliceName": "Cancel Reservation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Cancel Reservation",
+          "tags": [],
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": {
+        "title": "Reservation Can't Be Cancelled Less Than 2 Hours Before Start",
+        "id": "5af14bd9-034c-4045-9ea9-5882490bbe3d",
+        "description": "Reservation Starts in Less Than 2 Hours",
+        "type": "SPEC_ERROR",
+        "fields": []
+      },
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    },
+    {
+      "id": "22222222-2222-4222-8222-222222222205",
+      "title": "Reservation Cannot Be Cancelled Twice",
+      "chapter": "Reservations",
+      "sliceName": "Cancel Reservation",
+      "vertical": false,
+      "context": [],
+      "given": [
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        },
+        {
+          "title": "Reservation Cancelled",
+          "tags": [],
+          "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "when": [
+        {
+          "title": "Cancel Reservation",
+          "tags": [],
+          "id": "e5b19c74-8d02-4f36-a940-1c7e2b8f5a63",
+          "index": 0,
+          "specRow": 0,
+          "type": "COMMAND",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ],
+          "expectEmptyList": false
+        }
+      ],
+      "then": {
+        "title": "Reservation Cannot Be Cancelled Twice",
+        "id": "0e9b1a4b-458e-4d36-8dd2-b61b58c6e461",
+        "description": "Reservation Already Cancelled",
+        "type": "SPEC_ERROR",
+        "fields": []
+      },
+      "comments": [],
+      "expectEmptyList": false,
+      "examples": []
+    }
+  ],
+  "storylines": [],
+  "chapter": "Reservations",
+  "codeGen": {},
+  "notes": [],
+  "comments": [],
+  "aggregates": []
+}

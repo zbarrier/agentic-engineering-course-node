@@ -1,0 +1,193 @@
+{
+  "id": "2954a58f-a358-4cda-ab2b-059bd1d56948",
+  "status": "Created",
+  "title": "Pending Reservation Confirmations",
+  "context": "Reservations",
+  "sliceType": "STATE_VIEW",
+  "commands": [],
+  "events": [],
+  "readmodels": [
+    {
+      "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+      "tags": [],
+      "lane": "Interaction",
+      "modelContext": "Reservations",
+      "slice": "Pending Reservation Confirmations",
+      "title": "Pending Reservation Confirmations",
+      "fields": [
+        {
+          "name": "Id",
+          "type": "UUID",
+          "example": "1",
+          "mapping": "Reservation Placed.Id",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": true
+        },
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Reservation Placed.RestaurantId",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Reservation Placed.Email",
+          "generated": false,
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "READMODEL",
+      "description": "",
+      "aggregate": "default",
+      "aggregateDependencies": [],
+      "dependencies": [
+        {
+          "id": "2b0c4d61-5e83-4f29-9b17-3a6f8d0e2c4f",
+          "type": "OUTBOUND",
+          "title": "Reservation Confirmation Mailer",
+          "elementType": "AUTOMATION"
+        },
+        {
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "type": "INBOUND",
+          "title": "Reservation Placed",
+          "elementType": "EVENT"
+        },
+        {
+          "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+          "type": "INBOUND",
+          "title": "Reservation Confirmation Sent",
+          "elementType": "EVENT"
+        }
+      ],
+      "listElement": true,
+      "todoList": true,
+      "createsAggregate": false,
+      "triggers": [],
+      "elementCopy": false,
+      "linkedId": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+      "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [
+        "Will the confirmation email include the reservation's time and confirmation code, or does it only have the guest's email and restaurant to work with right now?"
+      ]
+    }
+  ],
+  "screens": [],
+  "screenImages": [],
+  "screenLayouts": [],
+  "processors": [],
+  "tables": [],
+  "specifications": [],
+  "storylines": [
+    {
+      "id": "99999999-9999-4999-8999-999999999901",
+      "title": "Storyline #1",
+      "elements": [
+        {
+          "title": "Pending Reservation Confirmations",
+          "tags": [],
+          "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        },
+        {
+          "title": "Reservation Placed",
+          "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            }
+          ]
+        },
+        {
+          "title": "Pending Reservation Confirmations",
+          "tags": [],
+          "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": false
+        },
+        {
+          "title": "Reservation Confirmation Sent",
+          "tags": [],
+          "id": "4d2e6f83-7a05-4b41-9d39-5c8b0f2a4e61",
+          "index": 0,
+          "specRow": 0,
+          "type": "EVENT",
+          "fields": [
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ]
+        },
+        {
+          "title": "Pending Reservation Confirmations",
+          "tags": [],
+          "id": "1a9b3c50-4d72-4e18-8a06-2f5e7c9d1b3e",
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [],
+          "expectEmptyList": true
+        }
+      ]
+    }
+  ],
+  "chapter": "Reservations",
+  "codeGen": {},
+  "notes": [
+    "## Event to field reasoning - Pending Reservation Confirmations\n\nThis is a **todo-list read model** (`todoListElement: true`) feeding the `Reservation Confirmation Mailer` automation, not a screen.\n\n- **Reservation Placed** -> opens the todo item. Sets `Id`, `RestaurantId`, `Email` - everything the Mailer needs to send the confirmation. The reservation does not need a confirmation before this event exists.\n- **Reservation Confirmation Sent** -> closes the todo item (removes the row). This is the backward `EVENT -> READMODEL` edge the platform allows specifically because this read model already has a `READMODEL -> AUTOMATION` edge - the todo-list accumulator exception. No field changes value; the row simply leaves the set once the confirmation is sent.\n\n### Why this enforces \"sent only once\"\n\nThe automation only ever acts on rows still open in this list. Once `Reservation Confirmation Sent` closes the item, the Mailer has nothing left to act on for that reservation - the guarantee is structural, not a check the automation has to remember to make. The command-level `Confirmation Cannot Be Sent Twice` scenario on `Send Reservation Confirmation` asserts the same guarantee as defense in depth, in case the command is ever invoked directly outside the automation's own read loop.\n\n### Fan-in\n\nTwo connected events, one opening and one closing the same item - the expected shape for a todo list, not a violation of the >3-events heuristic."
+  ],
+  "comments": [],
+  "aggregates": []
+}

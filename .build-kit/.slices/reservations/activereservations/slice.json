@@ -1,157 +1,385 @@
 {
   "id": "15d67bd1-8987-463f-8512-25592f14a0eb",
+  "status": "Planned",
   "title": "Active Reservations",
-  "status": "Created",
-  "sliceType": "STATE_VIEW",
-  "chapter": "Reservations",
   "context": "Reservations",
+  "sliceType": "STATE_VIEW",
   "commands": [],
   "events": [],
   "readmodels": [
     {
       "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
-      "title": "Active Reservations",
-      "type": "READMODEL",
-      "fields": [
-        { "name": "RestaurantId", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "UUID", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.RestaurantId" },
-        { "name": "Email", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "String", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.Email" },
-        { "name": "Code", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "String", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.Code" },
-        { "name": "Start", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "DateTime", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.Start" },
-        { "name": "End", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "DateTime", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.End" },
-        { "name": "NumberOfPeople", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "Int", "cardinality": "Single", "subfields": [], "mapping": "Reservation Placed.NumberOfPeople" }
-      ],
-      "dependencies": [
-        { "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60", "type": "INBOUND", "title": "Reservation Placed", "elementType": "EVENT" },
-        { "id": "b2f85d30-7a41-4c96-8e27-1b3d0f5a9c68", "type": "OUTBOUND", "title": "My Reservations", "elementType": "HTML_SCREEN" },
-        { "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81", "type": "INBOUND", "title": "Reservation Cancelled", "elementType": "EVENT" },
-        { "id": "c3f60d28-9e17-4a53-b846-2f9c5e1d8a70", "type": "OUTBOUND", "title": "My Reservations", "elementType": "HTML_SCREEN" }
-      ],
-      "modelContext": "Reservations",
+      "tags": [],
       "lane": "Interaction",
+      "elementContext": "INTERNAL",
+      "modelContext": "Reservations",
+      "context": "INTERNAL",
+      "slice": "Active Reservations",
+      "title": "Active Reservations",
+      "fields": [
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "Reservation Placed.RestaurantId",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Reservation Placed.Email",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Code",
+          "type": "String",
+          "example": "R7K2QX",
+          "mapping": "Reservation Placed.Code",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Start",
+          "type": "DateTime",
+          "example": "2026-09-18T19:00:00Z",
+          "mapping": "Reservation Placed.Start",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "End",
+          "type": "DateTime",
+          "example": "2026-09-18T21:00:00Z",
+          "mapping": "Reservation Placed.End",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "PartySize",
+          "type": "Int",
+          "example": "4",
+          "mapping": "Reservation Placed.PartySize",
+          "generated": false,
+          "subfields": [],
+          "cardinality": "Single",
+          "idAttribute": false
+        }
+      ],
+      "type": "READMODEL",
+      "description": "",
       "aggregate": "default",
       "aggregateDependencies": [],
-      "triggers": [],
-      "tags": [],
-      "slice": "Active Reservations",
-      "description": "",
-      "context": "INTERNAL",
-      "elementContext": "INTERNAL",
+      "dependencies": [
+        {
+          "id": "b2f85d30-7a41-4c96-8e27-1b3d0f5a9c68",
+          "type": "OUTBOUND",
+          "title": "My Reservations",
+          "elementType": "HTML_SCREEN"
+        },
+        {
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
+          "type": "INBOUND",
+          "title": "Reservation Placed",
+          "elementType": "EVENT"
+        }
+      ],
       "listElement": true,
       "todoList": false,
       "createsAggregate": false,
+      "triggers": [],
       "elementCopy": false,
+      "linkedId": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
       "sketched": false,
+      "prototype": {
+        "activeByDefault": false
+      },
       "comments": []
     }
   ],
   "screens": [
     {
       "id": "b2f85d30-7a41-4c96-8e27-1b3d0f5a9c68",
-      "title": "My Reservations",
-      "type": "HTML_SCREEN",
-      "fields": [
-        { "name": "RestaurantId", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "UUID", "cardinality": "Single", "subfields": [], "mapping": "route:RestaurantId" },
-        { "name": "Email", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "String", "cardinality": "Single", "subfields": [], "mapping": "Active Reservations.Email" },
-        { "name": "Code", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "String", "cardinality": "List", "subfields": [], "mapping": "Active Reservations.Code" },
-        { "name": "Start", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "DateTime", "cardinality": "List", "subfields": [], "mapping": "Active Reservations.Start" },
-        { "name": "End", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "DateTime", "cardinality": "List", "subfields": [], "mapping": "Active Reservations.End" },
-        { "name": "NumberOfPeople", "optional": false, "showAttributes": false, "technicalAttribute": false, "query": false, "generated": false, "edited": false, "idAttribute": false, "type": "Int", "cardinality": "List", "subfields": [], "mapping": "Active Reservations.NumberOfPeople" }
-      ],
-      "dependencies": [
-        { "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72", "type": "INBOUND", "title": "Active Reservations", "elementType": "READMODEL" }
-      ],
-      "modelContext": "Reservations",
+      "tags": [],
       "lane": "Guest",
+      "elementContext": "INTERNAL",
+      "modelContext": "Reservations",
+      "context": "INTERNAL",
+      "slice": "Active Reservations",
+      "title": "My Reservations",
+      "fields": [
+        {
+          "name": "RestaurantId",
+          "type": "UUID",
+          "example": "100",
+          "mapping": "route:RestaurantId",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "pii": true,
+          "name": "Email",
+          "type": "String",
+          "example": "guest@example.com",
+          "mapping": "Active Reservations.Email",
+          "cardinality": "Single",
+          "idAttribute": false
+        },
+        {
+          "name": "Code",
+          "type": "String",
+          "example": "R7K2QX",
+          "mapping": "Active Reservations.Code",
+          "cardinality": "List",
+          "idAttribute": false
+        },
+        {
+          "name": "Start",
+          "type": "DateTime",
+          "example": "2026-09-18T19:00:00Z",
+          "mapping": "Active Reservations.Start",
+          "cardinality": "List",
+          "idAttribute": false
+        },
+        {
+          "name": "End",
+          "type": "DateTime",
+          "example": "2026-09-18T21:00:00Z",
+          "mapping": "Active Reservations.End",
+          "cardinality": "List",
+          "idAttribute": false
+        },
+        {
+          "name": "PartySize",
+          "type": "Int",
+          "example": "4",
+          "mapping": "Active Reservations.PartySize",
+          "cardinality": "List",
+          "idAttribute": false
+        }
+      ],
+      "type": "HTML_SCREEN",
+      "description": "",
       "aggregate": "default",
       "aggregateDependencies": [],
-      "triggers": [],
-      "tags": [],
-      "slice": "Active Reservations",
-      "description": "",
-      "context": "INTERNAL",
-      "elementContext": "INTERNAL",
+      "dependencies": [
+        {
+          "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
+          "type": "INBOUND",
+          "title": "Active Reservations",
+          "elementType": "READMODEL"
+        }
+      ],
       "listElement": false,
       "todoList": false,
       "createsAggregate": false,
+      "triggers": [],
       "elementCopy": false,
+      "linkedId": "b2f85d30-7a41-4c96-8e27-1b3d0f5a9c68",
       "sketched": false,
-      "comments": []
+      "prototype": {
+        "activeByDefault": false
+      },
+      "comments": [
+        "Since the \"my reservations\" list is found using just the restaurant and the guest's email — and neither of those is private — could someone see another guest's bookings just by knowing their email address?"
+      ],
+      "pages": [
+        "<div style=\"padding:40px;background:#f5f7fa;min-height:100%;font-size:16px\"><h1 class=\"title is-2\">My Reservations</h1><p class=\"subtitle is-5\">Look up every table you currently have booked.</p><div class=\"box\" style=\"padding:24px;margin-bottom:28px;max-width:640px\"><div class=\"field has-addons\"><div class=\"control is-expanded\"><input class=\"input is-medium\" type=\"email\" value=\"guest@example.com\" /></div><div class=\"control\"><button class=\"button is-primary is-medium\">Find</button></div></div></div><div class=\"box\" style=\"padding:0\"><table class=\"table is-fullwidth is-striped\" style=\"font-size:16px\"><thead><tr><th>Code</th><th>Start</th><th>End</th><th>Number of People</th></tr></thead><tbody><tr><td><span class=\"tag is-info is-medium\">R7K2QX</span></td><td>2026-09-18 19:00</td><td>2026-09-18 21:00</td><td>4</td></tr><tr><td><span class=\"tag is-info is-medium\">M3P8ZW</span></td><td>2026-10-02 18:30</td><td>2026-10-02 20:30</td><td>2</td></tr></tbody></table></div><p class=\"help\" style=\"margin-top:16px\">Active reservations only. Cancelled bookings are not listed.</p></div>"
+      ]
     }
   ],
+  "screenImages": [],
+  "screenLayouts": [],
   "processors": [],
   "tables": [],
   "specifications": [],
-  "actors": [],
-  "aggregates": [],
-  "screenImages": [],
-  "comments": [],
   "storylines": [
     {
       "id": "33333333-3333-4333-8333-333333333301",
       "title": "Storyline #1",
       "elements": [
         {
-          "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
           "title": "Active Reservations",
           "tags": [],
+          "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
           "index": 0,
           "specRow": 0,
           "type": "READMODEL",
-          "fields": [],
+          "fields": [
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "PartySize",
+              "example": "4"
+            }
+          ],
           "expectEmptyList": true
         },
         {
-          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
           "title": "Reservation Placed",
           "tags": [],
+          "id": "c4d92f18-6b03-4e57-a92d-8e1f5a7c3b60",
           "index": 0,
           "specRow": 0,
           "type": "EVENT",
           "fields": [
-            { "name": "Id", "example": "1" },
-            { "name": "RestaurantId", "example": "100" },
-            { "name": "Email", "example": "guest@example.com" },
-            { "name": "Start", "example": "2026-09-18T19:00:00Z" },
-            { "name": "End", "example": "2026-09-18T21:00:00Z" },
-            { "name": "NumberOfPeople", "example": "4" },
-            { "name": "Code", "example": "R7K2QX" }
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "PartySize",
+              "example": "4"
+            }
+          ]
+        },
+        {
+          "title": "Active Reservations",
+          "tags": [],
+          "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
+          "index": 0,
+          "specRow": 0,
+          "type": "READMODEL",
+          "fields": [
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "PartySize",
+              "example": "4"
+            }
           ],
           "expectEmptyList": false
         },
         {
-          "id": "f2c81a05-7e34-4b96-8d51-0a3e9c6f1b72",
-          "title": "Active Reservations",
-          "tags": [],
-          "index": 0,
-          "specRow": 0,
-          "type": "READMODEL",
-          "fields": [],
-          "expectEmptyList": false
-        },
-        {
-          "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
           "title": "Reservation Cancelled",
           "tags": [],
+          "id": "e6a13c7b-2d58-4f09-8b74-9c2e0f6a4d81",
           "index": 0,
           "specRow": 0,
           "type": "EVENT",
           "fields": [
-            { "name": "Id", "example": "1" },
-            { "name": "RestaurantId", "example": "100" }
-          ],
-          "expectEmptyList": false
+            {
+              "name": "Id",
+              "example": "1"
+            },
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            }
+          ]
         },
         {
-          "id": "b8e51c94-3a26-4f70-9c83-1e7d0a4b6f52",
           "title": "Active Reservations",
           "tags": [],
+          "id": "b8e51c94-3a26-4f70-9c83-1e7d0a4b6f52",
           "index": 0,
           "specRow": 0,
           "type": "READMODEL",
-          "fields": [],
+          "fields": [
+            {
+              "name": "RestaurantId",
+              "example": "100"
+            },
+            {
+              "name": "Email",
+              "example": "guest@example.com"
+            },
+            {
+              "name": "Code",
+              "example": "R7K2QX"
+            },
+            {
+              "name": "Start",
+              "example": "2026-09-18T19:00:00Z"
+            },
+            {
+              "name": "End",
+              "example": "2026-09-18T21:00:00Z"
+            },
+            {
+              "name": "NumberOfPeople",
+              "example": "4"
+            }
+          ],
           "expectEmptyList": true
         }
       ]
     }
-  ]
+  ],
+  "chapter": "Reservations",
+  "codeGen": {},
+  "notes": [
+    "## Event to field reasoning - Active Reservations\n\n- **Reservation Placed** -> sets `Email`, `Code`, `Start`, `End`, `NumberOfPeople` - the row's creation event. A reservation does not exist in this projection before it.\n\nThat is the only inbound event on **this instance**. Cancellation is handled by the linked copy in column G, not by an edge back into this node - see that column's note.\n\n### Why `Id` is not projected here\n\nThis screen is read-only: the guest looks at the list, it issues no command. Nothing on it needs a reservation's identity, so `Id` is deliberately left out rather than carried speculatively. The `Reservation By Code` read model in column E does project `Id`, because its screen issues `Cancel Reservation`.\n\n### Fan-in\n\nOne source event. Well under the >3-events threshold - no split needed, nothing to justify."
+  ],
+  "comments": [],
+  "aggregates": []
 }

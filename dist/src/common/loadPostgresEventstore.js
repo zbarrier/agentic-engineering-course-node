@@ -14,6 +14,7 @@ const emmett_postgresql_1 = require("@event-driven-io/emmett-postgresql");
 const emmett_1 = require("@event-driven-io/emmett");
 const db_1 = require("./db");
 const ActiveReservationsProjection_1 = require("../slices/reservations/ActiveReservations/ActiveReservationsProjection");
+const ReservationByCodeProjection_1 = require("../slices/reservations/ReservationByCode/ReservationByCodeProjection");
 let eventStoreInstance = null;
 const findEventstore = () => __awaiter(void 0, void 0, void 0, function* () {
     if (!eventStoreInstance) {
@@ -27,6 +28,7 @@ const findEventstore = () => __awaiter(void 0, void 0, void 0, function* () {
             },
             projections: emmett_1.projections.inline([
                 ActiveReservationsProjection_1.ActiveReservationsProjection,
+                ReservationByCodeProjection_1.ReservationByCodeProjection,
             ]),
         });
         yield eventStoreInstance.schema.migrate();
