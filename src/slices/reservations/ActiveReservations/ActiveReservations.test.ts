@@ -47,7 +47,7 @@ describe('ActiveReservations Specification', () => {
                 assert.strictEqual(result.restaurant_id, '100');
                 assert.strictEqual(result.email, 'guest@example.com');
                 assert.strictEqual(result.code, 'R7K2QX');
-                assert.strictEqual(result.number_of_people, 4);
+                assert.strictEqual(result.party_size, 4);
             } finally {
                 await queryDb.destroy();
             }

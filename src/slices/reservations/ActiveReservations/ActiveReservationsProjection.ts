@@ -12,7 +12,7 @@ export type ActiveReservationsReadModel = {
     code: string;
     start: string;
     end: string;
-    numberOfPeople: number;
+    partySize: number;
 };
 
 export const getKnexInstance = (): Knex => knex({client: 'pg'});
@@ -36,10 +36,10 @@ export const ActiveReservationsProjection = postgreSQLRawSQLProjection<ActiveRes
                         code: event.data.Code,
                         start: event.data.Start,
                         end: event.data.End,
-                        number_of_people: event.data.NumberOfPeople,
+                        party_size: event.data.NumberOfPeople,
                     })
                     .onConflict('id')
-                    .merge(['restaurant_id', 'email', 'code', 'start', 'end', 'number_of_people'])
+                    .merge(['restaurant_id', 'email', 'code', 'start', 'end', 'party_size'])
                     .toQuery())];
 
             case 'ReservationCancelled':
