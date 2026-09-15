@@ -13,22 +13,56 @@
         "title": "Place Reservation",
         "status": "Done",
         "contextName": "Reservations"
-      }
+      },
+      "context": "Reservations"
     },
     {
       "id": "15d67bd1-8987-463f-8512-25592f14a0eb",
       "slice": "Active Reservations",
-      "index": 1,
+      "index": 0,
       "contextName": "Reservations",
       "contextSlug": "reservations",
       "folder": "activereservations",
-      "status": "Created",
+      "status": "Done",
       "definition": {
         "id": "15d67bd1-8987-463f-8512-25592f14a0eb",
         "title": "Active Reservations",
         "status": "Created",
         "contextName": "Reservations"
-      }
+      },
+      "context": "Reservations"
+    },
+    {
+      "id": "cb584b5d-8964-4277-ab75-51bea00461fd",
+      "slice": "Reservation By Code",
+      "index": 0,
+      "context": "Reservations",
+      "folder": "reservationbycode",
+      "status": "Planned"
+    },
+    {
+      "id": "d4f6e67d-0d16-4e3c-a7c2-6b015dd9b6fe",
+      "slice": "Cancel Reservation",
+      "index": 0,
+      "context": "Reservations",
+      "folder": "cancelreservation",
+      "status": "Created"
+    },
+    {
+      "id": "2954a58f-a358-4cda-ab2b-059bd1d56948",
+      "slice": "Pending Reservation Confirmations",
+      "index": 0,
+      "context": "Reservations",
+      "folder": "pendingreservationconfirmations",
+      "status": "Created"
+    },
+    {
+      "id": "a68d1537-6571-492d-920a-dbf9f8b65801",
+      "slice": "Send Reservation Confirmation",
+      "index": 0,
+      "context": "Reservations",
+      "folder": "sendreservationconfirmation",
+      "status": "Created"
     }
   ]
 }
