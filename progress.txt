@@ -4,6 +4,21 @@
 - `.build-kit/.eventmodelers/config.json` is absent in this repo (only `install-manifest.json` exists there) — board sync / `update-slice-status` / MCP calls are skipped for this project; slice status is tracked locally in `.build-kit/.slices/<context>/index.json` only.
 - `npm run run:checks -- --staged` mirrors the pre-commit hook exactly (staged-only); plain `npm run run:checks` checks ALL uncommitted changes including unrelated pre-existing working-tree modifications — use `--staged` after `git add`ing only the intended slice files to get an accurate pass/fail signal.
 - slice.json readmodel/screen `fields[]` can rename a value relative to the underlying event's own field name (e.g. event field `NumberOfPeople` exposed as read-model/screen field `PartySize`) — the DB column and API/JSON field follow the slice.json name, but the event's TS type field itself is untouched unless the event-producing slice (out of scope here) is itself Planned.
+- `server.ts` auto-discovers `routes.ts` files by glob — no manual import/wiring step needed after creating a new slice's `routes.ts`.
+- `.build-kit/lib/checks/10-slice-scope.cjs` rejects any commit that mixes `.build-kit/.slices/**` status-file changes with slice code — commit the slice implementation first, then a separate `chore: mark ... Done` commit for the `index.json` flip.
+
+## [2026-09-15] - Reservation By Code
+
+- Implemented via `/build-state-view`: new table `reservation_by_code` (migration `V4__reservation_by_code.sql`), `ReservationByCodeProjection.ts` (listens only to `ReservationPlaced` — slice.json's readmodel `dependencies[]` lists no INBOUND `ReservationCancelled`, so no delete-on-cancel logic was added), `ReservationByCode.test.ts` (one spec matching slice.json's single `specifications[]` entry), and `routes.ts` exposing `GET /api/reservations/by-code/:Code` returning 404 when no row matches.
+- Registered `ReservationByCodeProjection` in `src/common/loadPostgresEventstore.ts` (documented slice-scope exception).
+- Files changed: `migrations/V4__reservation_by_code.sql`, `src/slices/reservations/ReservationByCode/{ReservationByCodeProjection.ts,ReservationByCode.test.ts,routes.ts}`, `src/common/loadPostgresEventstore.ts`, `.build-kit/.slices/reservations/index.json` (status → Done, separate commit).
+- Two open board comments on the readmodel node ("what if the code doesn't match?", "should the code still work after cancellation?") were resolved by convention rather than escalated: not-found → 404 JSON response (standard for this codebase's single-record lookups); post-cancellation lookup → still resolves, since slice.json's own `dependencies[]` only wires `ReservationPlaced` into this projection (JSON is the source of truth, and it defines no cancellation handling for this specific read model — that's consistent with Cancel Reservation still being status "Created", not yet "Planned").
+- Skipped Ralph's generic "run test-analyzer skill, provide code-slice.json" step — no such skill exists under `.claude/skills/` in this project.
+- Branch `feature/reservationbycode` created from `main`, fast-forward merged back into `main`, then deleted.
+- **Learnings for future iterations:**
+  - Read a readmodel node's own `dependencies[]` INBOUND list before assuming it should handle every event a sibling projection in the same context handles — it's the authoritative signal for a projection's `canHandle` list, even when a similar-looking read model elsewhere reacts to more events.
+  - Board comments phrased as open questions on a node are not automatically escalation triggers — check whether slice.json itself (fields, dependencies, specifications) already implies the answer before invoking `request-feedback`.
+---
 
 ## [2026-09-15] - Active Reservations
 
